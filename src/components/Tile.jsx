@@ -28,7 +28,10 @@ function Tile(props)
   }
   var tileStyle = {
     width: '50px',
-    maxHeight: '50px'
+    maxHeight: '50px',
+    minHeight: '49px',
+    backgroundColor: 'grey',
+    display: 'inline-block'
   };
   return (
     <div style={tileStyle}>

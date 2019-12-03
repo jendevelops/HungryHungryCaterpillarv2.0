@@ -5,8 +5,9 @@ import PlayArea from './PlayArea';
 class Game extends React.Component {
   constructor(props){
     super(props);
+    this.emptyGameBoard = this.emptyGameBoard.bind(this);
     this.state={
-      gameBoard: emptyGameBoard(8),
+      gameBoard: this.emptyGameBoard(8),
       score: 0
     };
   }
@@ -18,7 +19,7 @@ class Game extends React.Component {
       let row=[];
       for(let j = 0; j<size; j++)
       {
-        row.push('');
+        row.push('0');
       }
       gameBoard.push(row);
     }
