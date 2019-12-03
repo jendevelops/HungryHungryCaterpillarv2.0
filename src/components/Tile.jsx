@@ -11,16 +11,16 @@ function Tile(props)
   {
     switch (contentType) {
     case 'head':
-      return <img src={Head} />;
+      return <img style={imgStyle} src={Head} />;
 
     case 'body':
-      return <img src={Body} />;
+      return <img style={imgStyle} src={Body} />;
 
     case 'flower':
-      return <img src={Flower} />;
+      return <img style={imgStyle} src={Flower} />;
 
     case 'enemy':
-      return <img src={Bird} />;
+      return <img style={imgStyle} src={Bird} />;
     
     default:
       return null;
@@ -31,8 +31,14 @@ function Tile(props)
     maxHeight: '50px',
     minHeight: '49px',
     backgroundColor: 'grey',
-    display: 'inline-block'
+    display: 'inline-block',
+    padding: '0px',
+    margin: '0px'
   };
+  var imgStyle = {
+    width: '50px',
+    height: '49px'
+  }
   return (
     <div style={tileStyle}>
       {tileContent(props.type)}
