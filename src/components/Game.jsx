@@ -44,7 +44,7 @@ class Game extends React.Component {
     this.setState({
       gameBoard: gameBoard,
       foodCoords: foodCoordinates
-    }, () => console.log(this.state));
+    });
   }
 
   addCaterpillar(gameBoard){
@@ -86,8 +86,8 @@ class Game extends React.Component {
 
   moveCaterpillar(event){
     let directionLetter = event.keyCode;
-    this.growCaterpillar(directionLetter);
-    let caterpillarCoords = this.state.caterpillarCoords.slice();
+    
+    let caterpillarCoords = this.growCaterpillar(directionLetter);
     let headX = caterpillarCoords[0][0];
     let headY = caterpillarCoords[0][1];
     let boardSize = this.state.gameBoard.length;
@@ -103,7 +103,6 @@ class Game extends React.Component {
     }
 
     let newHeadCoord = [headX, headY];
-    console.log("next headCoords", newHeadCoord);
     let newCaterpillarCoords = [newHeadCoord, ...caterpillarCoords];
     newCaterpillarCoords.pop();
     this.setState({caterpillarCoords: newCaterpillarCoords, direction: directionLetter}, () => this.updateState())
@@ -127,6 +126,7 @@ class Game extends React.Component {
 
   growCaterpillar(direction){
     let [bodyX, bodyY] = this.state.caterpillarCoords[this.state.caterpillarCoords.length -1];
+    let newCaterpillarCoords = this.state.caterpillarCoords.slice();
     if(this.isFoodEaten()){
       if (direction === 37 || direction === 65) { // left
         bodyY += 1;
@@ -140,8 +140,9 @@ class Game extends React.Component {
       const boardSize = this.state.gameBoard.length;
       bodyX = bodyX >= 0 ? bodyX % boardSize : bodyX + boardSize;
       bodyY = bodyY >= 0 ? bodyY % boardSize : bodyY + boardSize;
-      this.setState({caterpillarCoords: [...this.state.caterpillarCoords, [bodyX, bodyY]]}, () => console.log("growCaterpillar", this.state.caterpillarCoords));
+      newCaterpillarCoords.push([bodyX,bodyY]);
     }
+    return newCaterpillarCoords;
   }
   
   componentDidMount(){

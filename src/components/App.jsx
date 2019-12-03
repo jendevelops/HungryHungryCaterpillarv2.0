@@ -18,12 +18,10 @@ class App extends React.Component{
   handleStartClick(){
     let newState = 'start';
     this.setState({display: newState});
-    console.log(this.state);
   }
   handleRulesClick(){
     let newState = 'rules';
     this.setState({display: newState});
-    console.log(this.state);
   }
   handleMenuClick(){
     let newState = 'menu';
