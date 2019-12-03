@@ -12,19 +12,22 @@ class App extends React.Component{
     };
     this.handleRulesClick = this.handleRulesClick.bind(this);
     this.handleStartClick = this.handleStartClick.bind(this);
+    this.handleMenuClick = this.handleMenuClick.bind(this);
+    this.componentToRender = this.componentToRender.bind(this);
   }
   handleStartClick(){
-    let newState = {display: 'start'};
-    this.setState=newState;
+    let newState = 'start';
+    this.setState({display: newState});
+    console.log(this.state);
   }
   handleRulesClick(){
-    let newState = { display: 'rules' };
-    this.setState = newState;
+    let newState = 'rules';
+    this.setState({display: newState});
     console.log(this.state);
   }
   handleMenuClick(){
-    let newState = { display: 'menu' };
-    this.setState = newState;
+    let newState = 'menu';
+    this.setState({display: newState});
   }
 
   componentToRender(component){

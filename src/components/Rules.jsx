@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Rules(){
+function Rules(props){
   return (
     <div>
       <h2>Rules</h2>
