@@ -1,16 +1,15 @@
 import React from 'react';
-import Caterpillar from './Caterpillar';
-import Food from './Food';
+import Tile from './Tile';
 
 function PlayArea(props)
 {
   let gameBoard = props.gameBoard;
   return (
     <div>
-      {gameBoard.map((row) =>
-        row.map((content) => <Tile type={content} />))}
+      {gameBoard.map((row, rowIndex) =>
+        row.map((content,colIndex) => <Tile type={content} key={rowIndex + '-' + colIndex}/>))}
     </div>
-  )
+  );
 }
 
 export default PlayArea;

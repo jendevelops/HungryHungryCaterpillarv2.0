@@ -2,21 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
 import { HashRouter } from 'react-router-dom';
+import { AppContainer } from 'react-hot-loader';
 import { createStore } from 'redux';
-import reducer from './reducers/ticket-list-reducer';
 import { Provider } from 'react-redux';
 
-const store = createStore(reducer);
-let unsubscribe = store.subscribe(() =>
-  console.log(store.getState())
-);
+// const store = createStore(reducer);
+// let unsubscribe = store.subscribe(() =>
+//   console.log(store.getState())
+// );
 
 const render = (Component) => {
   ReactDOM.render(
     <HashRouter>
-      <Provider store={store}>
+      <AppContainer >
         <Component />
-      </Provider>
+      </AppContainer>
     </HashRouter>,
     document.getElementById('react-app-root')
   );

@@ -6,7 +6,7 @@ function ScoreBoard(props)
     <div>
       <h2>Score: <span>{props.score}</span></h2>
     </div>
-  )
+  );
 }
 
 export default ScoreBoard;

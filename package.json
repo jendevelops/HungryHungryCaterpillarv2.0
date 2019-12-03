@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src/** src/**/** --fix & exit 0",
+    "start": "webpack-dev-server"
   },
   "author": "",
   "license": "ISC",
@@ -26,6 +28,7 @@
     "prop-types": "^15.5.10",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
+    "react-redux": "^5.0.6",
     "react-router-dom": "^4.3.1",
     "redux": "^3.7.2",
     "style-loader": "^1.0.0",

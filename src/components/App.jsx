@@ -1,14 +1,15 @@
 import React from 'react';
 import Menu from './Menu';
 import Game from './Game';
+import Rules from './Rules';
 
 class App extends React.Component{
 
   constructor(props){
     super(props);
     this.state={
-      display: null
-    }
+      display: 'menu'
+    };
     this.handleRulesClick = this.handleRulesClick.bind(this);
     this.handleStartClick = this.handleStartClick.bind(this);
   }
@@ -19,24 +20,29 @@ class App extends React.Component{
   handleRulesClick(){
     let newState = { display: 'rules' };
     this.setState = newState;
+    console.log(this.state);
+  }
+  handleMenuClick(){
+    let newState = { display: 'menu' };
+    this.setState = newState;
   }
 
   componentToRender(component){
     switch (component) {
-      case 'start':
-        return <Game />;
-      case 'rules':
-        return <Rules />;
-      default:
-        return <Menu onStartClick={this.handleStartClick} onRulesClick={this.handleRulesClick}/>;
+    case 'start':
+      return <Game />;
+    case 'rules':
+      return <Rules onMenuClick={this.handleMenuClick}/>;
+    default:
+      return <Menu onStartClick={this.handleStartClick} onRulesClick={this.handleRulesClick}/>;
     }
   }
   render(){
     return (
       <div>
-        { componentToRender(this.state.display) }
+        { this.componentToRender(this.state.display) }
       </div>
-    )
+    );
   }
   
 }

@@ -8,14 +8,14 @@ class Game extends React.Component {
     this.state={
       gameBoard: emptyGameBoard(8),
       score: 0
-    }
+    };
   }
 
   emptyGameBoard(size){
     let gameBoard = [];
     for(let i =0; i < size; i++)
     {
-      row=[];
+      let row=[];
       for(let j = 0; j<size; j++)
       {
         row.push('');
@@ -32,10 +32,10 @@ class Game extends React.Component {
         <ScoreBoard score={this.state.score}/>
         <PlayArea gameBoard={this.state.gameBoard}/>
       </div>
-    )
+    );
   }
 
   
-  }
+}
   
 export default Game;

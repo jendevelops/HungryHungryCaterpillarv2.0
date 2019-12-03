@@ -8,7 +8,7 @@ function Menu(props)
       <button type='button' onClick={props.onStartClick}>Start</button>
       <button type='button' onClick={props.onRulesClick}>Rules</button>
     </div>
-  )
+  );
 }
 
 export default Menu;
