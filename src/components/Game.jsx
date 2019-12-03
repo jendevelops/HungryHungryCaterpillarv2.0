@@ -9,12 +9,14 @@ class Game extends React.Component {
     this.addCaterpillar = this.addCaterpillar.bind(this);
     this.generateFood = this.generateFood.bind(this);
     this.updateState = this.updateState.bind(this);
+    this.moveCaterpillar = this.moveCaterpillar.bind(this);
     this.state={
       gameBoard: this.emptyGameBoard(15),
       score: 0,
-      foodCoords: [],
+      foodCoords: [[-1,-1]],
       caterpillarCoords: [[0,0]]
     };
+    this.playDiv = React.createRef();
   }
 
   emptyGameBoard(size){
@@ -35,11 +37,10 @@ class Game extends React.Component {
     let gameBoard = this.addCaterpillar();
     const foodCoordinates = this.generateFood();
     gameBoard = this.addFood(gameBoard, foodCoordinates);
-    console.log(gameBoard);
     this.setState({
       gameBoard: gameBoard,
       foodCoords: foodCoordinates
-    });
+    }, () => console.log(this.state));
   }
 
   addCaterpillar(){
@@ -58,9 +59,11 @@ class Game extends React.Component {
 
   generateFood(){
     let foodCoordinates = this.state.foodCoords.slice();
-    //let foodCoordinates = state.foodCoords;
+    if(foodCoordinates.length === 1 && foodCoordinates[0][0] < 0 ){
+      foodCoordinates = [];
+    }
     while(foodCoordinates.length < 5){
-      // if generates error ==> missing food coordinate from array ==> make new one
+      // if missing food coordinate from array ==> make new one
       let randomX = Math.floor(Math.random()*this.state.gameBoard.length);
       let randomY = Math.floor(Math.random()*this.state.gameBoard.length);
       const newCoord = [randomX, randomY];
@@ -73,22 +76,29 @@ class Game extends React.Component {
 
   addFood(gameBoard, foodCoordinates){
     for (let i=0; i< foodCoordinates.length; i++){
-      console.log(foodCoordinates[i]);
       gameBoard[foodCoordinates[i][0]][foodCoordinates[i][1]] = 'flower';
     }
     return gameBoard;
   }
+
+  moveCaterpillar(event){
+    let directionLetter = event.keyCode;
+    let caterpillarCoords = this.state.caterpillarCoords.slice();
+    let headX = caterpillarCoords[0][0];
+    let headY = caterpillarCoords[0][1];
+    console.log(directionLetter);
+  }
   
   componentDidMount(){
+    this.playDiv.current.focus();
     this.updateState();
-    console.log(this.state);
   }
 
   render(){
     return (
-      <div>
+      <div onKeyDown={(event) => this.moveCaterpillar(event)} tabIndex="0" ref={this.playDiv}>
         <ScoreBoard score={this.state.score}/>
-        <PlayArea gameBoard={this.state.gameBoard}/>
+        <PlayArea gameBoard={this.state.gameBoard} />
       </div>
     );
   }
