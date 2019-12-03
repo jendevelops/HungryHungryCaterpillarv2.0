@@ -4,10 +4,11 @@ import Food from './Food';
 
 function PlayArea(props)
 {
+  let gameBoard = props.gameBoard;
   return (
     <div>
-      <Food />
-      <Caterpillar />
+      {gameBoard.map((row) =>
+        row.map((content) => <Tile type={content} />))}
     </div>
   )
 }
