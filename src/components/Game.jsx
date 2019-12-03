@@ -25,14 +25,8 @@ class Game extends React.Component {
     return gameBoard;
   }
 
-  handleStartClick(){
-
-  }
-  handleRulesClick(){
-    
-  }
-
   render(){
+
     return (
       <div>
         <ScoreBoard score={this.state.score}/>

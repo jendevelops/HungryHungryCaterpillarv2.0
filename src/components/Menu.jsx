@@ -5,8 +5,8 @@ function Menu(props)
   return (
     <div>
       <h1>Hungry Hungry Caterpillar</h1>
-      <button type='button' onClick={props.handleStartClick}>Start</button>
-      <button type='button' onClick={props.handleRulesClick}>Rules</button>
+      <button type='button' onClick={props.onStartClick}>Start</button>
+      <button type='button' onClick={props.onRulesClick}>Rules</button>
     </div>
   )
 }
