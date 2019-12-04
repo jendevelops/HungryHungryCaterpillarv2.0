@@ -117,10 +117,11 @@ class Game extends React.Component {
     this.state.foodCoords.forEach((foodCoordinate) => {
       const [foodX, foodY] = foodCoordinate;
       if (foodX === headX && foodY === headY){
+        let newScore = this.state.score + 1;
         ateFood = true;
         const ateFoodIndex = newFoodCoords.indexOf(foodCoordinate);
         newFoodCoords.splice(ateFoodIndex, 1);
-        this.setState({foodCoords: newFoodCoords});
+        this.setState({foodCoords: newFoodCoords, score: newScore});
       }
     });
     return ateFood;
