@@ -33,7 +33,6 @@ class App extends React.Component{
   handleGameOver(){
     let newState = 'gameOver';
     this.setState({ display: newState });
-    console.log("game over");
   }
 
   componentToRender(component){

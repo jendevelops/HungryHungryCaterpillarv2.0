@@ -151,8 +151,6 @@ class Game extends React.Component {
     let isGameOver = false;
     const [headX, headY] = this.state.caterpillarCoords[0];
     this.state.caterpillarCoords.forEach((coordinatePair, index) => {
-      console.log("head", headX, headY);
-      console.log(coordinatePair);
       if((index !== 0) && (coordinatePair[0] === headX && coordinatePair[1] === headY)){
         isGameOver = true;
       }
