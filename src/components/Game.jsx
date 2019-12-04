@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ScoreBoard from './ScoreBoard';
 import PlayArea from './PlayArea';
 
@@ -12,6 +13,7 @@ class Game extends React.Component {
     this.moveCaterpillar = this.moveCaterpillar.bind(this);
     this.growCaterpillar = this.growCaterpillar.bind(this);
     this.isFoodEaten = this.isFoodEaten.bind(this);
+    this.isGameOver = this.isGameOver.bind(this);
     this.state={
       gameBoard: this.emptyGameBoard(15),
       score: 0,
@@ -144,10 +146,29 @@ class Game extends React.Component {
     }
     return newCaterpillarCoords;
   }
+
+  isGameOver(){
+    let isGameOver = false;
+    const [headX, headY] = this.state.caterpillarCoords[0];
+    this.state.caterpillarCoords.forEach((coordinatePair, index) => {
+      console.log("head", headX, headY);
+      console.log(coordinatePair);
+      if((index !== 0) && (coordinatePair[0] === headX && coordinatePair[1] === headY)){
+        isGameOver = true;
+      }
+    })
+    return isGameOver;
+  }
   
   componentDidMount(){
-    this.playDiv.current.focus();
-    this.updateState();
+      this.playDiv.current.focus();
+      this.updateState();
+  }
+
+  componentDidUpdate(){
+    if (this.isGameOver()) {
+      this.props.onGameOver();
+    }
   }
 
   render(){
@@ -158,8 +179,10 @@ class Game extends React.Component {
       </div>
     );
   }
+}
 
-  
+Game.propTypes = {
+  onGameOver: PropTypes.func
 }
   
 export default Game;

@@ -2,6 +2,7 @@ import React from 'react';
 import Menu from './Menu';
 import Game from './Game';
 import Rules from './Rules';
+import GameOver from './GameOver';
 
 class App extends React.Component{
 
@@ -14,6 +15,7 @@ class App extends React.Component{
     this.handleStartClick = this.handleStartClick.bind(this);
     this.handleMenuClick = this.handleMenuClick.bind(this);
     this.componentToRender = this.componentToRender.bind(this);
+    this.handleGameOver = this.handleGameOver.bind(this);
   }
   handleStartClick(){
     let newState = 'start';
@@ -28,12 +30,20 @@ class App extends React.Component{
     this.setState({display: newState});
   }
 
+  handleGameOver(){
+    let newState = 'gameOver';
+    this.setState({ display: newState });
+    console.log("game over");
+  }
+
   componentToRender(component){
     switch (component) {
     case 'start':
-      return <Game />;
+      return <Game onGameOver={this.handleGameOver}/>;
     case 'rules':
       return <Rules onMenuClick={this.handleMenuClick}/>;
+      case 'gameOver':
+        return <GameOver onMenuClick={this.handleMenuClick} />;
     default:
       return <Menu onStartClick={this.handleStartClick} onRulesClick={this.handleRulesClick}/>;
     }
