@@ -14,11 +14,14 @@ class Game extends React.Component {
     this.growCaterpillar = this.growCaterpillar.bind(this);
     this.isFoodEaten = this.isFoodEaten.bind(this);
     this.isGameOver = this.isGameOver.bind(this);
+    this.generateEnemy = this.generateEnemy.bind(this);
+    this.addEnemies = this.addEnemies.bind(this);
     this.state={
       gameBoard: this.emptyGameBoard(15),
       score: 0,
       foodCoords: [[-1,-1]],
       caterpillarCoords: [[0,0]],
+      enemyCoords: [],
       direction: 39
     };
     this.playDiv = React.createRef();
@@ -43,9 +46,12 @@ class Game extends React.Component {
     gameBoard = this.addCaterpillar(gameBoard);
     const foodCoordinates = this.generateFood();
     gameBoard = this.addFood(gameBoard, foodCoordinates);
+    const enemies = this.generateEnemy(foodCoordinates, this.state.caterpillarCoords);
+    gameBoard = this.addEnemies(gameBoard, enemies);
     this.setState({
       gameBoard: gameBoard,
-      foodCoords: foodCoordinates
+      foodCoords: foodCoordinates,
+      enemyCoords: enemies
     });
   }
 
@@ -77,6 +83,27 @@ class Game extends React.Component {
       }
     }
     return foodCoordinates;
+  }
+
+  generateEnemy(foodCoords, caterpillarCoords){
+    const scoreMod = Math.floor(this.state.score/5);
+    let enemyCoords = this.state.enemyCoords.slice();
+    while(enemyCoords.length < scoreMod){
+      let randomX = Math.floor(Math.random() * this.state.gameBoard.length);
+      let randomY = Math.floor(Math.random() * this.state.gameBoard.length);
+      const newCoord = [randomX, randomY];
+      if (!foodCoords.includes(newCoord) && (caterpillarCoords[0][0] !== newCoord[0] && caterpillarCoords[0][1] !== newCoord[1])){
+        enemyCoords.push(newCoord);
+      }
+    }
+    return enemyCoords;
+  }
+
+  addEnemies(gameBoard, enemyCoords){
+    for (let i = 0; i < enemyCoords.length; i++) {
+      gameBoard[enemyCoords[i][0]][enemyCoords[i][1]] = 'enemy';
+    }
+    return gameBoard;
   }
 
   addFood(gameBoard, foodCoordinates){
@@ -151,8 +178,14 @@ class Game extends React.Component {
   isGameOver(){
     let isGameOver = false;
     const [headX, headY] = this.state.caterpillarCoords[0];
+    const enemies = this.state.enemyCoords;
     this.state.caterpillarCoords.forEach((coordinatePair, index) => {
       if((index !== 0) && (coordinatePair[0] === headX && coordinatePair[1] === headY)){
+        isGameOver = true;
+      }
+    })
+    this.state.enemyCoords.forEach((coordinatePair) => {
+      if (coordinatePair[0] === headX && coordinatePair[1] === headY) {
         isGameOver = true;
       }
     })
