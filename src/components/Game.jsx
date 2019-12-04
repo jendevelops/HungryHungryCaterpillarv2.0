@@ -195,12 +195,20 @@ class Game extends React.Component {
   componentDidMount(){
       this.playDiv.current.focus();
       this.updateState();
+      this.timer = setInterval(() =>
+      this.moveCaterpillar({keyCode: this.state.direction}), 300
+    );
   }
 
   componentDidUpdate(){
     if (this.isGameOver()) {
       this.props.onGameOver();
-    }
+    } 
+  }
+
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
   }
 
   render(){
